@@ -1,0 +1,4 @@
+﻿ALTER TABLE MarksReserves
+ADD CONSTRAINT PK_Marks1
+FOREIGN KEY(BoxesReserveId)
+REFERENCES BoxesReserves(Id)

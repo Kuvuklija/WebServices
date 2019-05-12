@@ -1,0 +1,74 @@
+﻿@model WebServices.Models.HeadReserve
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>HeadReserve</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Location)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Location)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Document)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Document)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Result)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Result)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Artikul)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Artikul)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Batch)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Batch)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DocumentRow)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DocumentRow)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>
