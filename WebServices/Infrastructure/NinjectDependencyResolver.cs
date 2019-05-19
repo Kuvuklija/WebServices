@@ -25,7 +25,7 @@ namespace WebServices.Infrastructure{
         }
 
         public void AddBindings() {
-            kernel.Bind<IRepository>().To<ReservationRepository>();
+            kernel.Bind<IRepository>().To<MarksRepository>();
         }
     }
 }

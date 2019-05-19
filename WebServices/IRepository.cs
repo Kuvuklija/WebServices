@@ -10,8 +10,14 @@ namespace WebServices{
         IEnumerable<BoxesReserve> boxesReserves { get; }
         IEnumerable<MarksReserve> marksReserves { get; }
 
-        void AddMarks(HeadReserve headReserve, BoxesReserve boxesReserve, MarksReserve marksReserve);
+        IEnumerable<Arrival> arrivals { get; }
+        IEnumerable<Material> materials { get; }
+        IEnumerable<Pallet> pallets { get; }
+        IEnumerable<Carton> cartons { get; }
+        IEnumerable<Mark> marks { get; }
 
-        string GetMarks(string location, string document, IEnumerable<string> artikuls, IEnumerable<string> batches);
+        void AddMarks(Arrival arrival);
+
+        HeadReserve GetMarks(string location, string document, IEnumerable<string> artikuls, IEnumerable<string> batches, ReserveMarksRequest request);
     }
 }

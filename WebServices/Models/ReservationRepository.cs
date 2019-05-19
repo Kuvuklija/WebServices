@@ -9,10 +9,11 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace WebServices.Models
 {
-    public class ReservationRepository:IRepository{
+    public class ReservationRepository{
 
         private EFContext context=new EFContext();
 
@@ -20,52 +21,42 @@ namespace WebServices.Models
         public IEnumerable<BoxesReserve> boxesReserves=>context.BoxesReserve;
         public IEnumerable<MarksReserve> marksReserves=>context.MarksReserve;
 
-        public string GetMarks(string location, string document, IEnumerable<string> artikuls, IEnumerable<string> batches){
+        public HeadReserve GetMarks(string location, string document, IEnumerable<string> artikuls, IEnumerable<string> batches, ReserveMarksRequest requestObject){
 
-            var selectedHeads = from t in headReserves 
-                               where t.Location==location && t.Document==document && artikuls.Contains(t.Artikul) && batches.Contains(t.Batch)
-                               group t by t.DocumentRow into g
-                               select g; 
+            //var selectedHeads = from t in headReserves 
+            //                   where t.Location==location && t.Document==document && artikuls.Contains(t.Artikul) && batches.Contains(t.Batch)
+            //                   group t by t.DocumentRow into g
+            //                   select g; 
 
-            JavaScriptSerializer ser = new JavaScriptSerializer();
+            HeadReserve selectedDoc = headReserves
+                .Where(t => t.Location == location && t.Document == document && artikuls.Contains(t.Artikul) && batches.Contains(t.Batch)).FirstOrDefault();
 
-            string header="";
-            string boxes="";
-            string marks="";
-            string singleObject = "";
-            foreach (var s in selectedHeads){ //very bad!!!!!!!!!!!
-                    //header
-                    Func<HeadReserve, JObject> objToJson1 =
-                        o => new JObject(
-                            new JProperty("Location", o.Location),
-                            new JProperty("Document", o.Document),
-                            new JProperty("Result", "Ok"),
-                            new JProperty("Artikul", o.Artikul),
-                            new JProperty("Batch", o.Batch),
-                            new JProperty("DocumentRow", o.DocumentRow));
-                    header += new JArray(s.Select(objToJson1)).ToString();
-                    //boxes
-                    foreach (HeadReserve hr in s){
-                        List<BoxesReserve> boxCollection = hr.BoxesReserve.ToList();
-                        Func<BoxesReserve, JObject> objToJson2 =
-                        o => new JObject(
-                            new JProperty("PalletBarcode", o.PalletBarcode),
-                            new JProperty("CartonBarcode", o.CartonBarcode));
-                        boxes += new JArray(boxCollection.Select(objToJson2)).ToString();
-                        //marks
-                        foreach (BoxesReserve br in boxCollection){
-                            List<MarksReserve> markCollection = br.MarksReserve.ToList(); //with IEnumerable
-                            Func<MarksReserve, JObject> objToJson3 =
-                                o => new JObject(
-                                    new JProperty("Code", o.Code),
-                                    new JProperty("Status", o.Status));
-                            marks += new JArray(markCollection.Select(objToJson3)).ToString();
-                        }
-                    boxes += marks;
-                    }
-                    singleObject += header + boxes + marks;
-                }
-            return singleObject;
+            //HeadReserve selectedDoc = (HeadReserve)headReserves
+            //    .Where(t=>requestObject.Materials.Select(p => p.Artikul).Contains(t.Artikul));
+
+            return selectedDoc;
+                
+            //JavaScriptSerializer ser = new JavaScriptSerializer();
+
+            //foreach (var s in selectedHeads){ //very bad!!!!!!!!!!!
+            //    foreach(HeadReserve headReserve in s) {
+            //        var json=ser.Serialize(headReserve);
+            //    }
+            //        //header
+            //        Func<HeadReserve, JObject> objToJson1 =
+            //            o => new JObject(
+            //                new JProperty("Location", o.Location),
+            //                new JProperty("Document", o.Document),
+            //                new JProperty("Result", "Ok"),
+            //                new JProperty("Artikul", o.Artikul),
+            //                new JProperty("Batch", o.Batch),
+            //                new JProperty("DocumentRow", o.DocumentRow));
+            //        header += new JArray(s.Select(objToJson1)).ToString();
+            //    }
+        }
+
+        public void AddMarks(HeadReserve headReserve, BoxesReserve boxesReserve, MarksReserve marksReserve ){
+           //TODO
         }
 
         private static ReservationRepository repo = new ReservationRepository();
@@ -87,9 +78,7 @@ namespace WebServices.Models
             return data.Where(r => r.ReservationId == id).FirstOrDefault();
         }
 
-        public void AddMarks(HeadReserve headReserve, BoxesReserve boxesReserve, MarksReserve marksReserve ){
-           //TODO
-        }
+        
 
         public Reservation Add(Reservation item){
             item.ReservationId = data.Count + 1;

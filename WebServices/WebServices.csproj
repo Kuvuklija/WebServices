@@ -152,9 +152,11 @@
     <Compile Include="Concrete\ReserveInicial.cs" />
     <Compile Include="Controllers\HeadReserveController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MarksController.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="IRepository.cs" />
-    <Compile Include="Models\MarksReservationRepository.cs" />
+    <Compile Include="Models\Arrival.cs" />
+    <Compile Include="Models\MarksRepository.cs" />
     <Compile Include="Models\HeadReserve.cs" />
     <Compile Include="Models\ReserveMarksRequest.cs" />
     <Compile Include="Controllers\WebController.cs" />
@@ -174,6 +176,7 @@
     <Content Include="Views\HeadReserve\Details.cshtml" />
     <Content Include="Views\HeadReserve\Edit.cshtml" />
     <Content Include="Views\HeadReserve\Index.cshtml" />
+    <Content Include="Views\Marks\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

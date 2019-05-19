@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WebServices.Controllers{
+namespace WebServices.Models{
 
     public class ReserveMarksRequest{
 
