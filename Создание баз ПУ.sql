@@ -52,17 +52,21 @@
 --GO
 --CREATE NONCLUSTERED INDEX [IX_HeadReserveId]
 --    ON [dbo].[Cartons]([PalletId] ASC);
-DROP TABLE Marks;
+--DROP TABLE Marks;
 
-CREATE TABLE [dbo].[Marks] (
-    [Id]            BIGINT         IDENTITY (1, 1) NOT NULL,
-    [MarkCode] NVARCHAR (150) NOT NULL,
-    [CartonId] BIGINT         NOT NULL,
-    CONSTRAINT [PK_dbo.Marks] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_dbo.Marks_dbo.Cartons_CartonId] FOREIGN KEY ([CartonId]) REFERENCES [dbo].[Cartons] ([Id]) ON DELETE CASCADE,
-);
+--CREATE TABLE [dbo].[Marks] (
+--    [Id]            BIGINT         IDENTITY (1, 1) NOT NULL,
+--    [MarkCode] NVARCHAR (150) NOT NULL,
+--    [CartonId] BIGINT         NOT NULL,
+--    CONSTRAINT [PK_dbo.Marks] PRIMARY KEY CLUSTERED ([Id] ASC),
+--    CONSTRAINT [FK_dbo.Marks_dbo.Cartons_CartonId] FOREIGN KEY ([CartonId]) REFERENCES [dbo].[Cartons] ([Id]) ON DELETE CASCADE,
+--);
 
 
-GO
-CREATE NONCLUSTERED INDEX [IX_HeadReserveId]
-    ON [dbo].[Marks]([CartonId] ASC);
+--GO
+--CREATE NONCLUSTERED INDEX [IX_HeadReserveId]
+--    ON [dbo].[Marks]([CartonId] ASC);
+
+ALTER TABLE [dbo].[Arrivals]
+ ADD [Date] datetime,
+     [Result] NVARCHAR (10) 

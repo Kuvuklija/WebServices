@@ -15,26 +15,22 @@ namespace WebServices.Models
 {
     public class ReservationRepository{
 
-        private EFContext context=new EFContext();
+        //private EFContext context=new EFContext();
 
-        public IEnumerable<HeadReserve> headReserves=>context.HeadReserve;
-        public IEnumerable<BoxesReserve> boxesReserves=>context.BoxesReserve;
-        public IEnumerable<MarksReserve> marksReserves=>context.MarksReserve;
-
-        public HeadReserve GetMarks(string location, string document, IEnumerable<string> artikuls, IEnumerable<string> batches, ReserveMarksRequest requestObject){
+        //public HeadReserve GetMarks(string location, string document, IEnumerable<string> artikuls, IEnumerable<string> batches, ReserveMarksRequest requestObject){
 
             //var selectedHeads = from t in headReserves 
             //                   where t.Location==location && t.Document==document && artikuls.Contains(t.Artikul) && batches.Contains(t.Batch)
             //                   group t by t.DocumentRow into g
             //                   select g; 
 
-            HeadReserve selectedDoc = headReserves
-                .Where(t => t.Location == location && t.Document == document && artikuls.Contains(t.Artikul) && batches.Contains(t.Batch)).FirstOrDefault();
+            //Arrival selectedDoc = context.Arrival
+            //    .Where(t => t.Location == location && t.Document == document && artikuls.Contains(t.Artikul) && batches.Contains(t.Batch)).FirstOrDefault();
 
-            //HeadReserve selectedDoc = (HeadReserve)headReserves
-            //    .Where(t=>requestObject.Materials.Select(p => p.Artikul).Contains(t.Artikul));
+            ////HeadReserve selectedDoc = (HeadReserve)headReserves
+            ////    .Where(t=>requestObject.Materials.Select(p => p.Artikul).Contains(t.Artikul));
 
-            return selectedDoc;
+            //return selectedDoc;
                 
             //JavaScriptSerializer ser = new JavaScriptSerializer();
 
@@ -53,7 +49,7 @@ namespace WebServices.Models
             //                new JProperty("DocumentRow", o.DocumentRow));
             //        header += new JArray(s.Select(objToJson1)).ToString();
             //    }
-        }
+        //}
 
         public void AddMarks(HeadReserve headReserve, BoxesReserve boxesReserve, MarksReserve marksReserve ){
            //TODO

@@ -6,10 +6,6 @@ namespace WebServices{
 
     public interface IRepository{
 
-        IEnumerable<HeadReserve> headReserves { get; }
-        IEnumerable<BoxesReserve> boxesReserves { get; }
-        IEnumerable<MarksReserve> marksReserves { get; }
-
         IEnumerable<Arrival> arrivals { get; }
         IEnumerable<Material> materials { get; }
         IEnumerable<Pallet> pallets { get; }
@@ -18,6 +14,6 @@ namespace WebServices{
 
         void AddMarks(Arrival arrival);
 
-        HeadReserve GetMarks(string location, string document, IEnumerable<string> artikuls, IEnumerable<string> batches, ReserveMarksRequest request);
+        Arrival GetMarks(string location, string document, IEnumerable<string> artikuls, IEnumerable<string> batches, ReserveMarksRequest request);
     }
 }

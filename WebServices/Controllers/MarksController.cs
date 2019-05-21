@@ -39,7 +39,7 @@ namespace WebServices.Controllers{
                 IEnumerable<string> batches = from material in inputRequest.Materials
                                                 select material.Batch;
 
-                HeadReserve currentDoc = repository.GetMarks(location, document, artikuls, batches, inputRequest);
+                Arrival currentDoc = repository.GetMarks(location, document, artikuls, batches, inputRequest);
                 if (currentDoc == null) {
                     return null;
                 }
@@ -67,6 +67,8 @@ namespace WebServices.Controllers{
             try {
                 JavaScriptSerializer ser = new JavaScriptSerializer();
                 inputRequest = ser.Deserialize<Arrival>(json);
+                inputRequest.Date = DateTime.Now;
+                inputRequest.Result = "ok";
                 repository.AddMarks(inputRequest);
                 return "Ok"; //create model for answer and serializer to json
             }catch(Exception e){

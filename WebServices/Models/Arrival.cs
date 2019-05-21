@@ -12,6 +12,8 @@ namespace WebServices.Models{
         public string Location { get; set; }
         public string Document { get; set; }
         public string Status { get; set; }
+        public string Result { get; set; }
+        public DateTime Date { get; set; }
         public virtual List<Material> Materials { get; set; }
     }
 
