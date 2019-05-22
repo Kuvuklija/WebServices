@@ -51,10 +51,6 @@ namespace WebServices.Models
             //    }
         //}
 
-        public void AddMarks(HeadReserve headReserve, BoxesReserve boxesReserve, MarksReserve marksReserve ){
-           //TODO
-        }
-
         private static ReservationRepository repo = new ReservationRepository();
 
         public static ReservationRepository Current{get{return repo;}}

@@ -18,42 +18,20 @@ namespace WebServices.Models{
 
         public Arrival GetMarks(string location, string document, IEnumerable<string> artikuls, IEnumerable<string> batches, ReserveMarksRequest requestObject){
 
-            //Arrival selectedDoc = context.Arrival
-            //    .Where(t => t.Location == location && t.Document == document && artikuls.Contains(t.Materials) && batches.Contains(t.Batch)).FirstOrDefault();
-
             var selectedDoc = (from arrival in arrivals
                               join material in materials on arrival.Id equals material.ArrivalId
                               where arrival.Location == location && arrival.Document == document && artikuls.Contains(material.Artikul) && batches.Contains(material.Batch)
-                              select new Arrival
-                              {
+                              select new Arrival{
                                   Location = arrival.Location,
                                   Document = arrival.Document,
                                   Status = arrival.Status,
                                   Materials = arrival.Materials,
-                                  Date = arrival.Date, // have to bring from base
+                                  Date = arrival.Date, 
                                   Id=arrival.Id
                               }).FirstOrDefault();
 
-
             return (Arrival)selectedDoc;
-                
-            //JavaScriptSerializer ser = new JavaScriptSerializer();
-
-            //foreach (var s in selectedHeads){ //very bad!!!!!!!!!!!
-            //    foreach(HeadReserve headReserve in s) {
-            //        var json=ser.Serialize(headReserve);
-            //    }
-            //        //header
-            //        Func<HeadReserve, JObject> objToJson1 =
-            //            o => new JObject(
-            //                new JProperty("Location", o.Location),
-            //                new JProperty("Document", o.Document),
-            //                new JProperty("Result", "Ok"),
-            //                new JProperty("Artikul", o.Artikul),
-            //                new JProperty("Batch", o.Batch),
-            //                new JProperty("DocumentRow", o.DocumentRow));
-            //        header += new JArray(s.Select(objToJson1)).ToString();
-            //    }
+            
         }
 
         public void AddMarks(Arrival arrival){
