@@ -8,7 +8,7 @@ namespace WebServices.Concrete{
     public class EFContext:DbContext{
 
         public EFContext() : base("EFContext") {
-            Database.Log = Console.WriteLine;
+            //Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
         }
 
         public DbSet<Arrival> Arrival { get; set; }

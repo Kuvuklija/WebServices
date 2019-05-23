@@ -67,6 +67,11 @@
 --CREATE NONCLUSTERED INDEX [IX_HeadReserveId]
 --    ON [dbo].[Marks]([CartonId] ASC);
 
-ALTER TABLE [dbo].[Arrivals]
- ADD [Date] datetime,
-     [Result] NVARCHAR (10) 
+--ALTER TABLE [dbo].[Arrivals]
+-- ADD [Date] datetime,
+--     [Result] NVARCHAR (10) 
+USE WebServices;
+TRUNCATE TABLE  Marks;
+TRUNCATE TABLE  Cartons;
+TRUNCATE TABLE  Pallets;
+TRUNCATE TABLE  Arrivals;

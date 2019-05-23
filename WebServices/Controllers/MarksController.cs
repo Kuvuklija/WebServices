@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Web.Mvc;
@@ -28,6 +29,7 @@ namespace WebServices.Controllers{
             string json = new StreamReader(req).ReadToEnd();
 
             ReserveMarksRequest inputRequest = null;
+            Stopwatch sw = Stopwatch.StartNew();
             try {
                 inputRequest = JsonConvert.DeserializeObject<ReserveMarksRequest>(json);
 
@@ -44,17 +46,15 @@ namespace WebServices.Controllers{
                     return null;
                 }
                 else{
-                    currentDoc.Result = "Ok";
+                    currentDoc.Result = "Ok" ;
                     return JsonConvert.SerializeObject(currentDoc);
-                    //return Json(currentDoc, JsonRequestBehavior.AllowGet);
                 }
 
             }
             catch(Exception e){
                 //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 string error = e.Message;
-                //return Json(new { Status = "BAD", Data = "" }, JsonRequestBehavior.AllowGet);
-                return error;
+                return "{\"Result\":\"Error\"}"; 
             }
         }
 
@@ -64,16 +64,20 @@ namespace WebServices.Controllers{
             req.Seek(0, SeekOrigin.Begin);
             string json = new StreamReader(req).ReadToEnd();
             Arrival inputRequest = null;
+            Stopwatch sw = Stopwatch.StartNew();
             try {
-                JavaScriptSerializer ser = new JavaScriptSerializer();
+                JavaScriptSerializer ser = new JavaScriptSerializer() { MaxJsonLength = Int32.MaxValue };
                 inputRequest = ser.Deserialize<Arrival>(json);
                 inputRequest.Date = DateTime.Now;
                 inputRequest.Result = "ok";
                 repository.AddMarks(inputRequest);
-                return "Ok"; //create model for answer and serializer to json
+
+                Debug.WriteLine($"Query Time: {sw.ElapsedMilliseconds} ms");
+
+                return "{\"Result\":\"Ok\"}";
             }catch(Exception e){
                 string error = e.Message;
-                return error;
+                return "{\"Result\":\"Error\"}"; 
             }
         }
     }
